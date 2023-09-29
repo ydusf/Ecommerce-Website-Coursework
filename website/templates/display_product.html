@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <div class="card" id="display-card">
+        <div class="card-img-container">
+            {% if product.image %}
+            <a href="/display_product/{{ product.id }}">
+                <img class="card-img" src="../static/img/products/{{product.image}}" alt="Card image cap" id="product-image">
+            </a>
+            {% endif %}
+        </div>
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-price">Price £{{ product.price }}</p>
+            <p class="card-footprint">Carbon footprint: {{ product.carbon_footprint}}</p>
+            <form id="remove-add-btn" method="POST" action="{{ url_for('views.add_to_basket', product_id=product.id) }}">
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <button type="submit">Add to Basket</button>
+            </form>
+        </div>
+    </div>
+    <span class="description-text">
+        <h1>Blurb</h1>
+        <p>{{ product.description }}</p>
+    </span>
+    <div class="citation">
+        Blurb and Images from: <br>
+        Goodreads Inc. (2023). Goodreads.<br>
+        Available at: <a href="http://www.goodreads.com">goodreads.com</a>
+    </div>
+{% endblock %}

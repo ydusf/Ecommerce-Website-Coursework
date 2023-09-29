@@ -1,0 +1,41 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python Bytecode Files
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Log files and temporary files
+*.log
+*.swp
+
+# IDE/Editor files
+.vscode/
+.idea/
+.pycharm/
+.vscode/
+.DS_Store
+
+# Dependency directories
+/venv/
+/env/
+/lib/
+/lib64/
+
+# Compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Local database files (e.g., SQLite)
+database.sqlite3
+instance/
+flask_session/
+
+# Other project-specific files (add as needed)
+static/

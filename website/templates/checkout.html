@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block title %}Checkout{% endblock %}
+{% block page_content %}
+    <h1>Checkout</h1>
+    <h4 id="help-message"></h4>
+    <div class="row">
+        <div class="col-md-3">
+            {{ render_form(form) }}
+        </div>
+    </div>
+
+    <script>
+        let cardNameField = document.querySelector('#card_name');
+        let cardNumberField = document.querySelector('#card_number');
+        let cardCVVField = document.querySelector('#cvv_number');
+
+        let fieldMessagesDict = {
+            cardNameField: "Enter the name on your card",
+            cardNumberField: "Enter the 16 digit number on your card",
+            cardCVVField: "Enter the 3 digit CVV number on your card",
+        }
+
+        function displayMessage(message) {
+            //finds element with id "help-message" and sets contents to message
+            let messageHeading = document.getElementById("help-message");
+            messageHeading.innerHTML += message;
+        }   
+
+        function deleteMessage() {
+            //finds element with id "help-message" and sets contents to empty string
+            let messageHeading = document.querySelector('#help-message');
+            if (messageHeading) {
+                messageHeading.innerHTML = "";
+            }
+        }
+
+        //when user focuses on the field it displays the message
+        cardNameField.addEventListener('focus', () => displayMessage(fieldMessagesDict.cardNameField));
+        cardNumberField.addEventListener('focus', () => displayMessage(fieldMessagesDict.cardNumberField));
+        cardCVVField.addEventListener('focus', () => displayMessage(fieldMessagesDict.cardCVVField));
+        //when user unfocuses it deletes the message
+        cardNameField.addEventListener('blur', () => deleteMessage());
+        cardNumberField.addEventListener('blur', () => deleteMessage());
+        cardCVVField.addEventListener('blur', () => deleteMessage());
+    </script>
+{% endblock %}

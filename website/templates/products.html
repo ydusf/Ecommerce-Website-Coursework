@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %} Products {% endblock %}
+
+{% block page_content %}
+    <div class="ad-container">
+        <div class="ad">
+            <img src="../static/img/adverts/faisal_ad.jpg" alt="faisal ad">
+        </div>
+        <div class="ad">
+            <img src="../static/img/adverts/miranda_ad.jpg" alt="miranda ad">
+        </div>
+    </div>
+    <div class="search-container"> 
+        <form class="search-container" method="POST" action="{{ url_for('views.search', search_terms = search_terms) }}">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search", name="search_terms">
+            <button type="Submit">Search</button>
+        </form>
+        <div class="dropdown">
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort by
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ url_for('views.sort_products', sort_id='price_desc') }}">Price Lowest to Highest</a>
+                <a class="dropdown-item" href="{{ url_for('views.sort_products', sort_id='price_asc') }}">Price Highest to Lowest</a>
+                <a class="dropdown-item" href="{{ url_for('views.sort_products', sort_id='name') }}">Alphabetical order</a>
+                <a class="dropdown-item" href="{{ url_for('views.sort_products', sort_id='carbon_footprint') }}">Carbon footprint Lowest to Highest</a>
+            </div>
+        </div>
+    </div>
+    <div id="all-products">
+        {% for product in products %}
+            <div class="card">
+                <div class="card-img-container"> 
+                    {% if product.image %}
+                    <a href="/display_product/{{ product.id }}">
+                        <img class="card-img" src="../static/img/products/{{product.image}}" alt="Card image cap" id="product-image">
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <h6 class="card-title">{{ product.name }}</h6>
+                    <p class="card-price">£{{ product.price }}</p>
+                    <p class="card-footprint">Carbon footprint: {{ product.carbon_footprint}}</p>
+                    <form id="remove-add-btn" method="POST" action="{{ url_for('views.add_to_basket', product_id=product.id) }}">
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <button type="submit">Add to Basket</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
